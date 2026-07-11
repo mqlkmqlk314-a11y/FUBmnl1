@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📚 المكتبة - قارئ فائق الدقة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- شاشة المصادقة (كما هي) -->
+    <section id="auth-screen" class="auth-screen">
+        <div class="auth-container">
+            <h1><i class="fas fa-book-open"></i> المكتبة الإلكترونية</h1>
+            <form id="login-form" class="auth-form">
+                <h2>تسجيل الدخول</h2>
+                <input type="text" id="login-username" placeholder="اسم المستخدم" required />
+                <input type="password" id="login-password" placeholder="كلمة السر" required />
+                <button type="submit">دخول</button>
+                <p class="auth-toggle">ليس لديك حساب؟ <a href="#" id="show-signup">إنشاء حساب جديد</a></p>
+                <div id="login-error" class="auth-error"></div>
+            </form>
+            <form id="signup-form" class="auth-form" style="display:none;">
+                <h2>إنشاء حساب جديد</h2>
+                <input type="text" id="signup-username" placeholder="اختر اسم مستخدم" required />
+                <input type="password" id="signup-password" placeholder="اختر كلمة سر" required />
+                <button type="submit">تسجيل</button>
+                <p class="auth-toggle">لديك حساب؟ <a href="#" id="show-login">تسجيل الدخول</a></p>
+                <div id="signup-error" class="auth-error"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- الشاشة الرئيسية -->
+    <section id="main-screen" class="main-screen" style="display:none;">
+        <header class="navbar">
+            <div class="navbar-brand"><i class="fas fa-book-open"></i> المكتبة</div>
+            <div class="navbar-user">
+                <span id="current-user"></span>
+                <button id="logout-btn" class="btn-logout"><i class="fas fa-sign-out-alt"></i> خروج</button>
+            </div>
+        </header>
+
+        <div class="library-container">
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="🔍 ابحث عن كتاب (اسم أو مؤلف)..." />
+            </div>
+            <div class="actions">
+                <button id="add-book-btn" class="btn-primary"><i class="fas fa-plus"></i> رفع كتاب جديد</button>
+                <button id="my-books-toggle" class="btn-secondary"><i class="fas fa-user"></i> كتبي</button>
+            </div>
+            <div id="bookshelf" class="bookshelf"></div>
+        </div>
+    </section>
+
+    <!-- مودال رفع الكتاب -->
+    <div id="upload-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2><i class="fas fa-upload"></i> رفع كتاب جديد</h2>
+            <form id="upload-form">
+                <input type="text" id="book-title" placeholder="اسم الكتاب" required />
+                <input type="text" id="book-author" placeholder="اسم المؤلف" required />
+                <input type="text" id="book-category" placeholder="التصنيف (مثال: رواية، علمي...)" required />
+                <div class="file-input-wrapper">
+                    <label for="pdf-file" class="btn-file"><i class="fas fa-file-pdf"></i> اختيار ملف PDF</label>
+                    <input type="file" id="pdf-file" accept=".pdf" required />
+                    <span id="file-name">لم يتم اختيار ملف</span>
+                </div>
+                <button type="submit" class="btn-primary">رفع الكتاب</button>
+                <div id="upload-error" class="auth-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- مودال القارئ الفائق الدقة -->
+    <div id="reader-modal" class="modal" style="display:none;">
+        <div class="modal-content reader-content">
+            <span class="close-modal">&times;</span>
+            <div class="reader-header">
+                <h2 id="reader-book-title">اسم الكتاب</h2>
+                <div class="reader-controls">
+                    <button id="fullscreen-btn" class="btn-icon" title="ملء الشاشة"><i class="fas fa-expand"></i></button>
+                    <button id="page-mode-btn" class="btn-icon" title="تبديل وضع الصفحات"><i class="fas fa-book"></i></button>
+                    <button id="zoom-out-btn" class="btn-icon" title="تصغير"><i class="fas fa-search-minus"></i></button>
+                    <span id="zoom-level">100%</span>
+                    <button id="zoom-in-btn" class="btn-icon" title="تكبير"><i class="fas fa-search-plus"></i></button>
+                </div>
+            </div>
+            <!-- شريط التنقل -->
+            <div class="page-navigation">
+                <button id="prev-page-btn" class="btn-icon" title="الصفحة السابقة"><i class="fas fa-chevron-right"></i></button>
+                <input type="number" id="page-input" value="1" min="1" />
+                <span id="total-pages">/ 0</span>
+                <button id="next-page-btn" class="btn-icon" title="الصفحة التالية"><i class="fas fa-chevron-left"></i></button>
+                <button id="bookmark-btn" class="btn-icon" title="حفظ الموقع"><i class="fas fa-bookmark"></i></button>
+            </div>
+            <div id="pdf-viewer" class="pdf-viewer"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
