@@ -5,7 +5,19 @@ const supabaseKey = "sb_publishable_7g8JVPpBa0LvppWZ-hBZeQ_4MB5leUB";
 const supabaseClient = supabase.createClient(
     supabaseUrl,
     supabaseKey
-);
+);async function testConnection() {
+    const { data, error } = await supabaseClient
+        .from("users")
+        .select("*");
+
+    if (error) {
+        console.log("خطأ:", error);
+    } else {
+        console.log("الاتصال يعمل:", data);
+    }
+}
+
+testConnection();
 
 // باقي كود موقعك يكون هنا// ============================================================
 //  المكتبة الإلكترونية - قارئ PDF فائق الدقة مع حفظ التقدم
