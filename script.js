@@ -1,4 +1,13 @@
-// ============================================================
+const supabaseUrl = "https://efzvmvvxzsiikofkxurm.supabase.co";
+
+const supabaseKey = "sb_publishable_7g8JVPpBa0LvppWZ-hBZeQ_4MB5leUB";
+
+const supabaseClient = supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+);
+
+// باقي كود موقعك يكون هنا// ============================================================
 //  المكتبة الإلكترونية - قارئ PDF فائق الدقة مع حفظ التقدم
 // ============================================================
 
